@@ -66,16 +66,21 @@ func getHatchetName(logname string) string {
 	if i = strings.LastIndex(hatchetName, "_gz"); i > 0 {
 		hatchetName = hatchetName[:i]
 	}
-	rand.Seed(time.Now().UnixNano())
-	b := make([]byte, TAIL_SIZE)
-	rand.Read(b)
-	tail := fmt.Sprintf("%x", b)[:TAIL_SIZE-1]
+
+	// 1# Comment this code to disable generating the random number
+	// rand.Seed(time.Now().UnixNano())
+	// b := make([]byte, TAIL_SIZE)
+	// rand.Read(b)
+	// tail := fmt.Sprintf("%x", b)[:TAIL_SIZE-1]
 
 	r := []rune(hatchetName) // convert string to runes
 	if unicode.IsDigit(r[0]) {
 		hatchetName = "_" + hatchetName
 	}
-	return fmt.Sprintf("%v_%v", hatchetName, tail)
+
+	// 2# Change return from having tail to none
+	// return fmt.Sprintf("%v_%v", hatchetName, tail)
+	return hatchetName
 }
 
 func EscapeString(value string) string {
@@ -167,7 +172,13 @@ func GetOffsetLimit(str string) (int, int) {
 }
 
 func getDateTimeStr(tm time.Time) string {
-	dt := tm.Format("2006-01-02T15:04:05.000-0000")
+	// The original is
+	// dt := tm.Format("2006-01-02T15:04:05.000-0000")
+
+	// The revised version - load the UTC+7 timezone
+	location, _ := time.LoadLocation("Asia/Bangkok") // Bangkok is UTC+7
+	dt := tm.In(location).Format("2006-01-02T15:04:05.000-0700")
+
 	return dt
 }
 
