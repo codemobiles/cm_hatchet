@@ -431,6 +431,6 @@ func getMainPage() string {
 </ul>
 <h4 align='center'><hr/>{{.Version}}</h4>
 `
-	template += fmt.Sprintf(`<div class="footer"><img valign="middle" src='data:image/png;base64,%v'/> Ken Chen</div>`, CHEN_ICO)
+	template += fmt.Sprintf(`<div class="footer"><img valign="middle" src='data:image/png;base64,%v'/><img valign="middle" src='data:image/png;base64,%v'/> Ken Chen</div>`, CHEN_ICO, POSPOS_ICO)
 	return template
 }
