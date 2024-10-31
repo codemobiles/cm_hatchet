@@ -9,8 +9,8 @@ import (
 
 func getFooter() string {
 	summary := "{{.Summary}}"
-	return fmt.Sprintf(`<div class="footer"><img valign="middle" src='data:image/png;base64,%v'> %v</img></div>`,
-		CHEN_ICO, summary)
+	return fmt.Sprintf(`<div class="footer"><img valign="middle" src='data:image/png;base64,%v'><img valign="middle" src='data:image/png;base64,%v'> %v</img></div>`,
+		CHEN_ICO, POSPOS_ICO, summary)
 }
 
 // GetChartTemplate returns HTML
