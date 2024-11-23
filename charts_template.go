@@ -30,6 +30,7 @@ func GetChartTemplate(chartType string) (*template.Template, error) {
 		<button onClick="refreshChart(); return false;" class="button">Refresh</button>
   	</div>	
 	<h2>[{{.Operation}}]</h2>
+	<input type="text" id="selectedData" placeholder="Selected data will appear here" style="width:100%; margin-top:10px;" readonly>
   	<div id='hatchetChart' class='chart' style="clear: left;"></div>
   
 		</body></html>`
@@ -113,10 +114,10 @@ func getOpStatsChart() string {
 			var dateTime = data.getValue(row, 1); // Second column (date/time)
 			var durationOrCount = data.getValue(row, 2); // Third column (duration or count)
 			var description = data.getValue(row, 3); // Fourth column (description)
-			var countsOrFilter = data.getValue(row, 4); // Fifth column (if applicable)
-		
-			// Format the selected data as a string        	
-        	navigator.clipboard.writeText("1234")
+			var countsOrFilter = data.getValue(row, 4); // Fifth column (if applicable)			        	
+
+			document.getElementById('selectedData').value = description;
+
 
 			// Display the selected data
 			alert('Selected Bubble Data:\n' +
