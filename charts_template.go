@@ -105,34 +105,39 @@ func getOpStatsChart() string {
 		
 		// Add click event listener
     	google.visualization.events.addListener(chart, 'select', function() {
-    var selection = chart.getSelection();
-    if (selection.length > 0) {
-        var row = selection[0].row; // Get the selected row index
-        // Retrieve data from the selected row
-        var op = data.getValue(row, 0); // First column (operation)
-        var dateTime = data.getValue(row, 1); // Second column (date/time)
-        var durationOrCount = data.getValue(row, 2); // Third column (duration or count)
-        var description = data.getValue(row, 3); // Fourth column (description)
-        var countsOrFilter = data.getValue(row, 4); // Fifth column (if applicable)
+		var selection = chart.getSelection();
+		if (selection.length > 0) {
+			var row = selection[0].row; // Get the selected row index
+			// Retrieve data from the selected row
+			var op = data.getValue(row, 0); // First column (operation)
+			var dateTime = data.getValue(row, 1); // Second column (date/time)
+			var durationOrCount = data.getValue(row, 2); // Third column (duration or count)
+			var description = data.getValue(row, 3); // Fourth column (description)
+			var countsOrFilter = data.getValue(row, 4); // Fifth column (if applicable)
 
-        // Format the selected data as a string
-        var clipboardData = `Operation: ${op}\n` +
-                            `Date/Time: ${dateTime}\n` +
-                            `Duration or Count: ${durationOrCount}\n` +
-                            `Description: ${description}\n` +
-                            `Counts or Filter: ${countsOrFilter}`;
+			
+			// Format the selected data as a string        	
+        	navigator.clipboard.writeText(description)
 
-        // Copy to clipboard using Clipboard API
-        navigator.clipboard.writeText(clipboardData).then(function() {
-            alert('Data copied to clipboard:\n' + clipboardData);
-        }).catch(function(err) {
-            console.error('Failed to copy to clipboard', err);
-            alert('Failed to copy data to clipboard.');
-        });
-    } else {
-        alert('No bubble selected.');
-    }
-});
+
+			// Display the selected data
+			alert('Selected Bubble Data:\n' +
+				'Operation: ' + op + '\n' +
+				'Date/Time: ' + dateTime + '\n' +
+				'Description: ' + description + '\n' +				
+				({{if eq $ctype "ops"}}
+					'Duration (seconds): ' + durationOrCount + '\n' +
+					'Counts: ' + countsOrFilter
+				{{else}}
+					'Count: ' + durationOrCount + '\n' +
+					'Filter: ' + countsOrFilter
+				{{end}}
+				)
+			);
+		} else {
+			alert('No bubble selected.');
+		}
+		});
 	}
 </script>
 {{else}}
