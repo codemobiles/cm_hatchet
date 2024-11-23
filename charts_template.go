@@ -114,7 +114,9 @@ func getOpStatsChart() string {
 			var durationOrCount = data.getValue(row, 2); // Third column (duration or count)
 			var description = data.getValue(row, 3); // Fourth column (description)
 			var countsOrFilter = data.getValue(row, 4); // Fifth column (if applicable)
-					
+		
+			// Format the selected data as a string        	
+        	await navigator.clipboard.writeText(description)
 
 			// Display the selected data
 			alert('Selected Bubble Data:\n' +
