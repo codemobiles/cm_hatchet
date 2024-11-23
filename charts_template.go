@@ -105,9 +105,33 @@ func getOpStatsChart() string {
 		
 		// Add click event listener
     	google.visualization.events.addListener(chart, 'select', function() {
-        var selection = chart.getSelection();
-		alert('You clicked on: {{descr $v}}' + JSON.stringify(selection));        
-    });
+		var selection = chart.getSelection();
+		if (selection.length > 0) {
+			var row = selection[0].row; // Get the selected row index
+			// Retrieve data from the selected row
+			var op = data.getValue(row, 0); // First column (operation)
+			var dateTime = data.getValue(row, 1); // Second column (date/time)
+			var durationOrCount = data.getValue(row, 2); // Third column (duration or count)
+			var description = data.getValue(row, 3); // Fourth column (description)
+			var countsOrFilter = data.getValue(row, 4); // Fifth column (if applicable)
+
+			// Display the selected data
+			alert('Selected Bubble Data:\n' +
+				'Operation: ' + op + '\n' +
+				'Date/Time: ' + dateTime + '\n' +
+				({{if eq $ctype "ops"}}
+					'Duration (seconds): ' + durationOrCount + '\n' +
+					'Counts: ' + countsOrFilter
+				{{else}}
+					'Count: ' + durationOrCount + '\n' +
+					'Filter: ' + countsOrFilter
+				{{end}}
+				)
+			);
+		} else {
+			alert('No bubble selected.');
+		}
+		});
 	}
 </script>
 {{else}}
