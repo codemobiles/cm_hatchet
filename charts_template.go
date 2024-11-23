@@ -119,6 +119,7 @@ func getOpStatsChart() string {
 			alert('Selected Bubble Data:\n' +
 				'Operation: ' + op + '\n' +
 				'Date/Time: ' + dateTime + '\n' +
+				'Description: ' + description + '\n' +				
 				({{if eq $ctype "ops"}}
 					'Duration (seconds): ' + durationOrCount + '\n' +
 					'Counts: ' + countsOrFilter
