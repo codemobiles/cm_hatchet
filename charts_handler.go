@@ -54,6 +54,13 @@ var charts = map[string]Chart{
 		"Display total response length by namespaces", "/reslen-ns?ns="},
 }
 
+func Capitalize(s string) string {
+	if len(s) == 0 {
+		return s // Return empty string if input is empty
+	}
+	return strings.ToUpper(string(s[0])) + strings.ToLower(s[1:])
+}
+
 // ChartsHandler responds to charts API calls
 func ChartsHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	/** APIs
@@ -144,7 +151,7 @@ func ChartsHandler(w http.ResponseWriter, r *http.Request, params httprouter.Par
 				return
 			}
 			doc := map[string]interface{}{"Hatchet": hatchetName, "NameValues": docs, "Chart": charts[chartType],
-				"Type": chartType, "Summary": summary, "Start": start, "End": end, "Operation": operationType}
+				"Type": chartType, "Summary": summary, "Start": start, "End": end, "Operation": Capitalize(operationType)}
 			if err = templ.Execute(w, doc); err != nil {
 				json.NewEncoder(w).Encode(map[string]interface{}{"ok": 0, "error": err.Error()})
 				return
