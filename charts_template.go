@@ -29,7 +29,7 @@ func GetChartTemplate(chartType string) (*template.Template, error) {
 		<input type='datetime-local' id='end' value='{{.End}}'></input>
 		<button onClick="refreshChart(); return false;" class="button">Refresh</button>
   	</div>	
-	<h2>[{{.Operation}}</h2>
+	<h2>[{{.Operation}}]</h2>
   	<div id='hatchetChart' class='chart' style="clear: left;"></div>
   
 		</body></html>`
@@ -106,7 +106,7 @@ func getOpStatsChart() string {
 		// Add click event listener
     	google.visualization.events.addListener(chart, 'select', function() {
         var selection = chart.getSelection();
-		alert('You clicked on:');        
+		alert('You clicked on:' + selection);        
     });
 	}
 </script>
