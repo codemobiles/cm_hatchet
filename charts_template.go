@@ -106,7 +106,7 @@ func getOpStatsChart() string {
 		// Add click event listener
     	google.visualization.events.addListener(chart, 'select', function() {
         var selection = chart.getSelection();
-		alert('You clicked on: ' + value);        
+		alert('You clicked on:');        
     });
 	}
 </script>
