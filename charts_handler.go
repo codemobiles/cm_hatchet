@@ -80,6 +80,7 @@ func ChartsHandler(w http.ResponseWriter, r *http.Request, params httprouter.Par
 
 	if attr == T_OPS {
 		chartType := r.URL.Query().Get("type")
+		operationType := r.URL.Query().Get("op")
 		op := r.URL.Query().Get("op")
 		if chartType == "stats" {
 			chartType := T_OPS
@@ -98,7 +99,7 @@ func ChartsHandler(w http.ResponseWriter, r *http.Request, params httprouter.Par
 				return
 			}
 			doc := map[string]interface{}{"Hatchet": hatchetName, "OpCounts": docs, "Chart": charts[chartType],
-				"Type": chartType, "Summary": summary, "Start": start, "End": end, "VAxisLabel": "seconds"}
+				"Type": chartType, "Summary": summary, "Start": start, "End": end, "Operation": operationType}
 			if err = templ.Execute(w, doc); err != nil {
 				json.NewEncoder(w).Encode(map[string]interface{}{"ok": 0, "error": err.Error()})
 				return
@@ -116,7 +117,7 @@ func ChartsHandler(w http.ResponseWriter, r *http.Request, params httprouter.Par
 				return
 			}
 			doc := map[string]interface{}{"Hatchet": hatchetName, "NameValues": docs, "Chart": charts[chartType],
-				"Type": chartType, "Summary": summary, "Start": start, "End": end}
+				"Type": chartType, "Summary": summary, "Start": start, "End": end, "Operation": "Find"}
 			if err = templ.Execute(w, doc); err != nil {
 				json.NewEncoder(w).Encode(map[string]interface{}{"ok": 0, "error": err.Error()})
 				return
@@ -126,6 +127,7 @@ func ChartsHandler(w http.ResponseWriter, r *http.Request, params httprouter.Par
 		return
 	} else if attr == "connections" {
 		chartType := r.URL.Query().Get("type")
+		operationType := r.URL.Query().Get("op")
 		if dbase.GetVerbose() {
 			log.Println("type", chartType, "duration", duration)
 		}
@@ -142,7 +144,7 @@ func ChartsHandler(w http.ResponseWriter, r *http.Request, params httprouter.Par
 				return
 			}
 			doc := map[string]interface{}{"Hatchet": hatchetName, "NameValues": docs, "Chart": charts[chartType],
-				"Type": chartType, "Summary": summary, "Start": start, "End": end}
+				"Type": chartType, "Summary": summary, "Start": start, "End": end, "Operation": operationType}
 			if err = templ.Execute(w, doc); err != nil {
 				json.NewEncoder(w).Encode(map[string]interface{}{"ok": 0, "error": err.Error()})
 				return
