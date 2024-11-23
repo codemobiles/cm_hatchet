@@ -106,7 +106,7 @@ func ChartsHandler(w http.ResponseWriter, r *http.Request, params httprouter.Par
 				return
 			}
 			doc := map[string]interface{}{"Hatchet": hatchetName, "OpCounts": docs, "Chart": charts[chartType],
-				"Type": chartType, "Summary": summary, "Start": start, "End": end, "Operation": operationType}
+				"Type": chartType, "Summary": summary, "Start": start, "End": end, "Operation": Capitalize(operationType)}
 			if err = templ.Execute(w, doc); err != nil {
 				json.NewEncoder(w).Encode(map[string]interface{}{"ok": 0, "error": err.Error()})
 				return
