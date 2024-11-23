@@ -24,13 +24,14 @@ func GetChartTemplate(chartType string) (*template.Template, error) {
 		html += getConnectionsChart()
 	}
 	html += `
-	<div style="float: left; width: 100%; clear: left;">
+	<div style="float: left; width: 100%; clear: left; margin-bottom: 10px">
 		<input type='datetime-local' id='start' value='{{.Start}}'></input>
 		<input type='datetime-local' id='end' value='{{.End}}'></input>
 		<button onClick="refreshChart(); return false;" class="button">Refresh</button>
-  	</div>		
+  	</div>	
+	<h2>[{{.Operation}}</h2>
   	<div id='hatchetChart' class='chart' style="clear: left;"></div>
-  <h2>[{{.Operation}}]</h2>
+  
 		</body></html>`
 
 	return template.New("hatchet").Funcs(template.FuncMap{
@@ -66,7 +67,7 @@ func getOpStatsChart() string {
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
 	{{if eq .Type "ops"}}
-			['op', 'date/time', 'duration (seconds)', 'ns', 'counts'],
+			['op', 'date/time', 'duration (seconds)x', 'ns', 'counts'],
 	{{else}}
 			['op', 'date/time', 'count', 'ns/filter'],
 	{{end}}
