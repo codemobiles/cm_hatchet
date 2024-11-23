@@ -30,7 +30,7 @@ func GetChartTemplate(chartType string) (*template.Template, error) {
 		<button onClick="refreshChart(); return false;" class="button">Refresh</button>
   	</div>		
   	<div id='hatchetChart' class='chart' style="clear: left;"></div>
-  <h2 style="maring-top:10px;">[{{.Operation}}]</h2>
+  <h2>[{{.Operation}}]</h2>
 		</body></html>`
 
 	return template.New("hatchet").Funcs(template.FuncMap{
