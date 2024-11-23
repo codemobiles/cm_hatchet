@@ -116,7 +116,7 @@ func getOpStatsChart() string {
 			var countsOrFilter = data.getValue(row, 4); // Fifth column (if applicable)
 		
 			// Format the selected data as a string        	
-        	await navigator.clipboard.writeText(description)
+        	navigator.clipboard.writeText("1234")
 
 			// Display the selected data
 			alert('Selected Bubble Data:\n' +
