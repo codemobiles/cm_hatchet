@@ -115,24 +115,7 @@ func getOpStatsChart() string {
 			var durationOrCount = data.getValue(row, 2); // Third column (duration or count)
 			var description = data.getValue(row, 3); // Fourth column (description)
 			var countsOrFilter = data.getValue(row, 4); // Fifth column (if applicable)			        	
-
-			document.getElementById('selectedData').value = description;
-
-
-			// Display the selected data
-			alert('Selected Bubble Data:\n' +
-				'Operation: ' + op + '\n' +
-				'Date/Time: ' + dateTime + '\n' +
-				'Description: ' + description + '\n' +				
-				({{if eq $ctype "ops"}}
-					'Duration (seconds): ' + durationOrCount + '\n' +
-					'Counts: ' + countsOrFilter
-				{{else}}
-					'Count: ' + durationOrCount + '\n' +
-					'Filter: ' + countsOrFilter
-				{{end}}
-				)
-			);
+			document.getElementById('selectedData').value = description + ' ' + op + ' ' + dateTime + ' ' + durationOrCount + ' ' + countsOrFilter;			
 		} else {
 			alert('No bubble selected.');
 		}
