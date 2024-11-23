@@ -106,13 +106,7 @@ func getOpStatsChart() string {
 		// Add click event listener
     	google.visualization.events.addListener(chart, 'select', function() {
         var selection = chart.getSelection();
-        if (selection.length > 0) {
-            var row = selection[0].row;
-            var col = selection[0].column;
-            var value = data.getValue(row, col);
-            alert('You clicked on: ' + value);
-            console.log('Row: ' + row + ', Column: ' + col + ', Value: ' + value);
-        }
+		alert('You clicked on: ' + value);        
     });
 	}
 </script>
